@@ -13,22 +13,7 @@ export const instance = window.jsp = jsPlumb.getInstance({
             events:{
                 click:function() { alert("you clicked on the arrow overlay")}
             }
-        } ],
-        // [ "Label", {
-        //     location: 0.1,
-        //     id: "label",
-        //     cssClass: "aLabel",
-        //     events:{
-        //         tap: (params) => { 
-        //             console.log(params)
-        //             // alert("hey"); 
-        //             // instance.bind("click", (conn) => {
-        //                 // instance.detach(conn);
-        //                 // instance.deleteConnection(conn)
-        //             // });
-        //         }
-        //     }
-        // }]
+        } ]
     ],
     Container: "canvas"
 });

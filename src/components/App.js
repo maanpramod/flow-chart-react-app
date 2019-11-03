@@ -3,7 +3,7 @@ import '../../node_modules/jsplumb/css/jsplumbtoolkit-defaults.css';
 import '../css/jsplumbtoolkit-demo.css';
 import '../css/App.css';
 import 'semantic-ui-css/semantic.min.css'
-import { applyJsPlumb, instance } from './jsplumb.js';
+import { applyJsPlumb, instance } from '../jsplumb/jsplumb.js';
 import Start from './start.js'
 import Pipeline from './pipeline.js'
 import Join from './join.js'
