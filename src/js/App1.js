@@ -14,39 +14,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      // flowChartData: {
-      //   nodes: [],
-      //   positions: [],
-      //   connections: []
-      // }
-      nodes: []
+      flowChartData: {
+        nodes: [],
+        positions: [],
+        connections: []
+      }
     }
   }
 
   componentDidUpdate = () => {
-    // console.log('component did update')
     const { flowChartData } = this.state
     // applyJsPlumb(flowChartData)
-    // console.log(flowChartData.nodes[0].id)
-  }
-
-  componentDidMount() {
-    // console.log('component did mount')
-    document.addEventListener("ConnectDone", ({ detail: { sourceId, targetId } }) => {
-      console.log("ConnectionDone event called in React")
-      // const detail = { sourceId, targetId }
-      console.log(sourceId, targetId)
-      let connections = this.getConnections('1')
-      const newConnection = {
-        sourceAnchor: "RightMiddle",
-        sourceId: this.state.flowChartData.nodes[0].id,
-        targetAnchor: "TopCenter",
-        targetId: this.state.flowChartData.nodes[1].id
-      }
-      connections = [...connections, newConnection]
-      const flowChartData = {...this.state.flowChartData, connections}
-      this.setState({ flowChartData })
-    })
   }
 
   getNodes = () => {
@@ -120,47 +98,24 @@ class App extends Component {
     return connections
   }
 
-  // addNode = (event) => {
-  //   const name = event.target.innerHTML
-  //   const randomValue = Math.random()
-  //   const id = name + randomValue
-  //   const newNode = { name, id }
-  //   const nodes = [...this.state.flowChartData.nodes, newNode]
-  //   let [positions, connections] = [[], []];
-  //   if (instance.getContainer()) {
-  //       positions = this.getPositions(id)
-  //       connections = this.getConnections(id)
-  //   } 
-  //   const flowChartData = {...this.state.flowChartData, nodes, positions, connections}
-  //   this.setState({ flowChartData })
-  // }
-
   addNode = (event) => {
     const name = event.target.innerHTML
     const randomValue = Math.random()
     const id = name + randomValue
-    // const newNode = { name, id }
-    // const nodes = [...this.state.flowChartData.nodes, newNode]
-    // let [positions, connections] = [[], []];
-    // if (instance.getContainer()) {
-    //     positions = this.getPositions(id)
-    //     connections = this.getConnections(id)
-    // } 
-    // const flowChartData = {...this.state.flowChartData, nodes, positions, connections}
-    // this.setState({ flowChartData })
-
-    const nodes = this.state.nodes.map(idOfNode => {
-      const id = 1
-    })
-    const newNode = {} 
-    newNode[id] = { name, inputs: {}, outputs: {}, position: [] }
-    const allNode = [...nodes, newNode]
-    console.log(allNode)
+    const newNode = { name, id }
+    const nodes = [...this.state.flowChartData.nodes, newNode]
+    let [positions, connections] = [[], []];
+    if (instance.getContainer()) {
+        positions = this.getPositions(id)
+        connections = this.getConnections(id)
+    } 
+    const flowChartData = {...this.state.flowChartData, nodes, positions, connections}
+    this.setState({ flowChartData })
   }
+
 
   deleteNode = (id) => {
     const check = instance.getConnections({ id });
-    console.log(check)
     const nodes = this.state.flowChartData.nodes.filter((node, index) => node.id !== id)
     const positions = this.getPositions(id)
     const connections = this.getConnections(id)
@@ -169,7 +124,7 @@ class App extends Component {
   }
 
   render() { 
-    // console.log(this.state.flowChartData) 
+    console.log(this.state.flowChartData) 
     return ( 
       <div data-demo-id="flowchart">
         <div className='flowchart-header'>

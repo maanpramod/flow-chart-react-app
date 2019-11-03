@@ -13,7 +13,7 @@ export const instance = window.jsp = jsPlumb.getInstance({
             events:{
                 click:function() { alert("you clicked on the arrow overlay")}
             }
-        } ]
+        } ],
         // [ "Label", {
         //     location: 0.1,
         //     id: "label",
@@ -104,6 +104,8 @@ const  _addEndpoints = function (toId, sourceAnchors, targetAnchors) {
 };
 
 
+
+
 const  flowChart = () => { 
     const { ids, nodes } = flowChartData
 
@@ -137,16 +139,12 @@ const  flowChart = () => {
             for (const targetId in targets) {
                 const targetAnchors = targets[targetId]
                 const inputsOfTarget = nodes[targetId].inputs
-                // for (const input in inputsOfTarget) {
-                //     if (input===id) {
                 const sourceId = id
                 const sourceAnchors = inputsOfTarget[sourceId]
                 for (const index in sourceAnchors) {
                     const [sourceAnchor, targetAnchor]= [sourceAnchors[index], targetAnchors[index]]
                     instance.connect({uuids: [sourceId+sourceAnchor, targetId+targetAnchor]});
                 }
-                //     }
-                // }
             }
         }     
     })()
@@ -166,6 +164,7 @@ const  flowChart = () => {
             if (sourceId === targetId) {
                 return false
             }
+
             let error;
 
             const checkCycle = (id, path) => {
@@ -177,7 +176,6 @@ const  flowChart = () => {
 
             const visitInFlowChart = (id, checkCycle, visited, path) => {
                 const node = nodes[id]
-                console.log(node.name)
                 const inputs = node.inputs
                 if (!visited) { visited = {} }
                 if (!path) { path = [] }
@@ -195,8 +193,11 @@ const  flowChart = () => {
             
             if (error) return false ;
 
-            const addConnection = new CustomEvent("addConnection", { detail: { connection, dropEndpoint } });
-            document.dispatchEvent(addConnection);
+            const addConnection = (() => { 
+                const addConnection = new CustomEvent("addConnection", { detail: { connection, dropEndpoint } });
+                document.dispatchEvent(addConnection);
+            })()
+
             return true
         })
     })()
